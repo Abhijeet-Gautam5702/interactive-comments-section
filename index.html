@@ -1,26 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  
-  <title>Frontend Mentor | Interactive comments section</title>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link rel="stylesheet" href="style.css" />
 
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
-</head>
-<body>
+    <title>Frontend Mentor | Interactive comments section</title>
+  </head>
+  <body>
+    <!-- Pull dynamic content from the data.json file -->
 
-  <!-- Pull dynamic content from the data.json file -->
-  
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div>
-</body>
+    <!-- <div class="attribution">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+        >Frontend Mentor</a
+      >. Coded by <a href="#">Your Name Here</a>.
+    </div> -->
+
+    <!--main body containing the content of the interactive comment section-->
+    <main class="container">
+      <!--Comments-display-container-->
+      <section class="comment-display-container">
+        <!--Single comment-->
+        <div class="comment-container">
+          <div class="comment-box"></div>
+          <div class="comment-box"></div>
+          <div class="comment-box"></div>
+          <div class="comment-box"></div>
+          <div class="comment-box"></div>
+          <div class="reply-box"></div>
+        </div>
+        <!--Single comment ends-->
+      </section>
+      <!--Comments-display-container ends-->
+
+      <!--Add-Comment-Box-->
+      <div class="add-comment-container">
+        <div id="avatar-img-container"><img id="avatar-img" src="images/avatars/image-juliusomo.png" alt="avatar"></div>
+        <textarea name="comment" id="comment" placeholder="Add a comment..." rows="30"></textarea>
+        <button id="send-btn">SEND</button>
+      </div>
+      <!--Add-Comment-Box ends-->
+    </main>
+
+    <script src="script.js"></script>
+  </body>
 </html>
