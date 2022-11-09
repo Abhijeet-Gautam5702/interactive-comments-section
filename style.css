@@ -30,14 +30,15 @@ body {
 }
 
 /*CSS for a single comment container*/
-/* .comment-container {
-   border: 2px solid black; 
-   padding: 5px; 
-} */
+.comment-container {
+  border: 2px solid green;
+  padding: 5px;
+  /*    position:relative; */
+}
 .comment-box {
   margin: 5px 0px;
   padding: 10px;
-/*   height: 150px;  */
+  /*   height: 150px;  */
   width: 100%;
   border: 3px solid orange;
   display: flex;
@@ -45,43 +46,43 @@ body {
   align-items: center;
 }
 .score-box {
-/*   border: 1px solid black; */
-/*   height: 100%; */
+  /*   border: 1px solid black; */
+  /*   height: 100%; */
   width: 8%;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-.score-btn{
+.score-btn {
   padding: 5px;
-  width:80%;
-  border:none;
-  cursor:pointer;
+  width: 80%;
+  border: none;
+  cursor: pointer;
 }
-.score-text-box{
-  width:80%;
-  padding:5px 0px;
-  text-align:center;
+.score-text-box {
+  width: 80%;
+  padding: 5px 0px;
+  text-align: center;
 }
 
 .comment-main-box {
-/*   border: 1px solid black; */
+  /*   border: 1px solid black; */
   width: 90%;
-/*   height: 100%; */
+  /*   height: 100%; */
   display: flex;
   flex-direction: column;
 }
 
 /*CSS for commentator-info section (top section of comment)*/
 .commentator-info-box {
-/*   border: 1px solid yellow; */
+  /*   border: 1px solid yellow; */
   width: 100%;
   height: 30%; /*temporary*/
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  position:relative;
+  position: relative;
 }
 
 .commentator-avatar-box {
@@ -99,7 +100,7 @@ body {
   /*   border:1px solid red; */
   /*   padding:5px; */
   position: absolute;
-/*   left: auto; */
+  /*   left: auto; */
   right: 0%;
 }
 .reply-icon {
@@ -108,7 +109,7 @@ body {
 }
 .comment-text-box {
   height: 70%; /*temporary*/
-/*   border: 1px solid blue; */
+  /*   border: 1px solid blue; */
   text-align: justify;
   padding: 5px;
   font-size: 13px;
@@ -116,10 +117,11 @@ body {
 
 .reply-box {
   position: relative;
-  left: 10%;
+  left: 5%;
   border: 2px solid gray;
-  width: 90%;
+  width: 95%;
   height: 100px; /*temporary*/
+  padding: 5px;
 }
 
 /*CSS for Add-Comment container*/
@@ -133,6 +135,18 @@ body {
   align-items: stretch;
   padding: 10px;
 }
+.reply-comment-container {
+  border: 2px solid orangered;
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  width: 100%;
+  /* height:100px; */
+  /*   left:5px; */
+  right: 0px;
+  padding:5px;
+}
 #avatar-img-container {
   width: 8%;
   /*   height: 50%; */
@@ -142,7 +156,7 @@ body {
   width: 100%;
   height: auto;
 }
-#comment {
+.comment {
   padding: 7px;
   width: 75%;
   /*   height:100%; */
@@ -151,4 +165,13 @@ body {
 #send-btn {
   height: 40%;
   padding: 5px 10px;
+}
+#reply-btn {
+  font-size: 10px;
+  padding: 5px;
+  height: 40%;
+}
+
+.hide {
+  display: none;
 }

@@ -1,3 +1,5 @@
+let editFlag = false;
+
 const comments = [
   {
     id: 1,
@@ -30,8 +32,7 @@ const commentDisplayContainer = document.querySelector(
   ".comment-display-container"
 );
 const sendBtn = document.querySelector("#send-btn");
-const commentTextbox = document.querySelector("#comment");
-
+const commentTextbox = document.querySelector(".comment");
 
 window.addEventListener("DOMContentLoaded", render);
 
@@ -144,6 +145,29 @@ function generateComment(commentObj, createNewFlag) {
             </div>
           </div>
         </div>
+
+        <!--reply-Comment-Box-->
+
+        <div class = "reply-box hide">
+          <div class="reply-comment-container ">
+            <div id="avatar-img-container">
+              <img
+                id="avatar-img"
+                src="images/avatars/image-juliusomo.png"
+                alt="avatar"
+              />
+            </div>
+            <textarea
+              name="comment"
+              class="comment reply-comment"
+              placeholder="Reply to this comment..."
+              rows = "4"
+            ></textarea>
+            <button id="reply-btn">REPLY</button>
+          </div>
+        </div>
+        
+
         <!--whenever a reply is made, add this element using javascript "innerHTML property"
                 <div class="reply-box"></div>-->
       `;
@@ -157,11 +181,27 @@ function generateComment(commentObj, createNewFlag) {
   const replyBtn = element.querySelector(".reply-icon-box");
   const plusBtn = element.querySelector(".plus-btn");
   const minusBtn = element.querySelector(".minus-btn");
-  replyBtn.addEventListener("click", function () {
-    console.log("reply-btn clicked");
-  });
+  replyBtn.addEventListener("click", reply);
   plusBtn.addEventListener("click", incScore);
   minusBtn.addEventListener("click", decScore);
+}
+
+function reply(e) {
+  const element =
+    e.currentTarget.parentElement.parentElement.parentElement.parentElement;
+  const receiver = element.querySelector(".commentator-name").textContent;
+  const replyBox = element.querySelector(".reply-box");
+  replyBox.classList.toggle("hide");
+  const replyTextBox = element.querySelector(".reply-comment");
+
+  editFlag = true;
+  replyTextBox.value = `@${receiver} `;
+  const replyBtn = element.querySelector("#reply-btn");
+  // console.log(replyBtn)
+  replyBtn.addEventListener("click", function () {
+    console.log("reply sent");
+    //store the reply in the respective receiver's object and update the local storage.
+  });
 }
 
 //function to add the newly generated comment to localStorage
