@@ -120,8 +120,15 @@ body {
   left: 5%;
   border: 2px solid gray;
   width: 95%;
-  height: 100px; /*temporary*/
   padding: 5px;
+}
+
+.reply-display-container{
+/*   position:absolute; */
+  width:100%;
+/*   height:100px; */
+  border:2px solid cyan;
+  margin-bottom:5px;
 }
 
 /*CSS for Add-Comment container*/
@@ -137,7 +144,7 @@ body {
 }
 .reply-comment-container {
   border: 2px solid orangered;
-  position: absolute;
+/*   position: absolute; */
   display: flex;
   justify-content: space-between;
   align-items: stretch;
