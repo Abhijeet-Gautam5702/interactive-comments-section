@@ -2,8 +2,14 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+
 }
 body {
+  font-family:sans-serif;
+  line-height:20px;
+  align-text:justify;
+/*   background-color:#dbd4f2;*/
+  background-color:#f0f0ff;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -12,7 +18,8 @@ body {
 }
 .container {
   height: 90vh;
-  border: 1px solid black;
+  border-top: 1px solid black;
+  border-radius:7px;
   max-width: 500px;
   width: 80%;
   display: flex;
@@ -25,22 +32,24 @@ body {
   overflow: auto;
   width: 100%;
   height: 80%;
-  border: 2px solid blue;
+/*   border: 2px solid blue; */
   padding: 5px;
 }
 
 /*CSS for a single comment container*/
 .comment-container {
-  border: 2px solid green;
+/*   border: 2px solid green; */
   padding: 5px;
   /*    position:relative; */
 }
 .comment-box {
+  background-color:white;
   margin: 5px 0px;
   padding: 10px;
   /*   height: 150px;  */
   width: 100%;
-  border: 3px solid orange;
+/*   border: 2px solid orange; */
+  border-radius:7px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -54,16 +63,27 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .score-btn {
+  background-color:#f0f0ff;
+  border-radius:5px;
   padding: 5px;
-  width: 80%;
+  width: 85%;
   border: none;
   cursor: pointer;
 }
+.plus-btn{
+  border-radius: 5px 5px 0px 0px;
+}
+.minus-btn{
+  border-radius: 0px 0px 5px 5px;
+}
 .score-text-box {
-  width: 80%;
+  background-color:white;
+  width: 85%;
   padding: 5px 0px;
   text-align: center;
+  font-size:14px;
 }
 
 .comment-main-box {
@@ -102,6 +122,7 @@ body {
   position: absolute;
   /*   left: auto; */
   right: 0%;
+  cursor:pointer;
 }
 .reply-icon {
   width: 100%;
@@ -116,25 +137,29 @@ body {
 }
 
 .reply-box {
+  /* display: none; */
   position: relative;
   left: 5%;
-  border: 2px solid gray;
+  border-left: 1.5px solid gray;
+/*   border-radius:5px; */
   width: 95%;
   padding: 5px;
 }
 
-.reply-display-container{
-/*   position:absolute; */
-  width:100%;
-/*   height:100px; */
-  border:2px solid cyan;
-  margin-bottom:5px;
+.reply-display-container {
+  /*   position:absolute; */
+  width: 100%;
+  /*   height:100px; */
+/*   border: 2px solid cyan; */
+  margin-bottom: 5px;
 }
 
 /*CSS for Add-Comment container*/
 .add-comment-container {
   width: 100%;
-  border: 1px solid red;
+/*   border: 2px solid red;*/
+  background-color:white;
+  border-radius:7px;
   height: 20%;
   margin-top: 10px;
   display: flex;
@@ -143,8 +168,11 @@ body {
   padding: 10px;
 }
 .reply-comment-container {
-  border: 2px solid orangered;
-/*   position: absolute; */
+  margin-top:10px;
+/*   border: 2px solid orangered; */
+  background-color:white;
+  border-radius:7px;
+  /*   position: absolute; */
   display: flex;
   justify-content: space-between;
   align-items: stretch;
@@ -152,7 +180,7 @@ body {
   /* height:100px; */
   /*   left:5px; */
   right: 0px;
-  padding:5px;
+  padding: 10px;
 }
 #avatar-img-container {
   width: 8%;
@@ -170,15 +198,32 @@ body {
   text-align: left;
 }
 #send-btn {
+  background-color:#5357b6;
+  color:white;
+  border-radius:5px;
+  border:none;
+  font-size:12px;
   height: 40%;
-  padding: 5px 10px;
+  padding: 7px 10px;
+  cursor:pointer;
 }
 #reply-btn {
-  font-size: 10px;
-  padding: 5px;
+  background-color:#5357b6;
+  color:white;
+  border-radius:3px;
+  border:none;
+  font-size: 9px;
+  padding: 8px;
   height: 40%;
+  cursor:pointer;
 }
 
 .hide {
   display: none;
+}
+
+textarea{
+  border-radius:7px;
+  border:0.5px solid gray ;
+/*   border:none; */
 }

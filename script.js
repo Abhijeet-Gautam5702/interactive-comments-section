@@ -17,7 +17,16 @@ const comments = [
     comment:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias,temporibus saepe optio illo magnam sit aut vero voluptates at eligendi?",
     score: "10",
-    replies: [],
+    replies: [
+      {
+        id: 0.483214351, //random ID
+        user: "ramsesmiron", //the one who replies
+        avatar: "images/avatars/image-ramsesmiron.png",
+        comment: "I have replied to your comment", //actual text of reply
+        score: 0,
+        replies: [], //replies for this current reply-comment
+      },
+    ],
   },
   {
     id: 3,
@@ -36,6 +45,7 @@ const commentDisplayContainer = document.querySelector(
 );
 const sendBtn = document.querySelector("#send-btn");
 const commentTextbox = document.querySelector(".comment");
+let plusBtn, minusBtn;
 
 window.addEventListener("DOMContentLoaded", render);
 
@@ -56,8 +66,10 @@ sendBtn.addEventListener("click", function () {
 //function to increase score
 function incScore(e) {
   const scoreBox = e.currentTarget.parentElement;
-  const commentCont = scoreBox.parentElement.parentElement;
+  // console.log(scoreBox)
+  const commentCont = scoreBox.parentElement;
   const contID = Number(commentCont.getAttribute("cont-id"));
+  // console.log(commentCont);
 
   let scoreTextEl = scoreBox.querySelector(".score-text-box");
   let x = Number(scoreTextEl.textContent);
@@ -65,9 +77,18 @@ function incScore(e) {
   scoreTextEl.textContent = x.toString();
 
   const items = JSON.parse(localStorage.getItem("comments"));
+  //find the id in the comments and update
   items.filter(function (item) {
     if (item.id === contID) {
       item.score = x.toString();
+    } else {
+      //if not found in the current comment, check in the replies of current comment
+      const replies = item.replies;
+      replies.filter(function (reply) {
+        if (reply.id === contID) {
+          reply.score = x.toString();
+        }
+      });
     }
     return item;
   });
@@ -77,18 +98,32 @@ function incScore(e) {
 //function to decrease score
 function decScore(e) {
   const scoreBox = e.currentTarget.parentElement;
-  const commentCont = scoreBox.parentElement.parentElement;
+  // console.log(scoreBox)
+  const commentCont = scoreBox.parentElement;
   const contID = Number(commentCont.getAttribute("cont-id"));
+  // console.log(commentCont);
 
   let scoreTextEl = scoreBox.querySelector(".score-text-box");
   let x = Number(scoreTextEl.textContent);
   x--;
+  if (x < 0) {
+    x = 0;
+  }
   scoreTextEl.textContent = x.toString();
 
   const items = JSON.parse(localStorage.getItem("comments"));
+  //find the id in the comments and update
   items.filter(function (item) {
     if (item.id === contID) {
       item.score = x.toString();
+    } else {
+      //if not found in the current comment, check in the replies of current comment
+      const replies = item.replies;
+      replies.filter(function (reply) {
+        if (reply.id === contID) {
+          reply.score = x.toString();
+        }
+      });
     }
     return item;
   });
@@ -97,6 +132,7 @@ function decScore(e) {
 
 //renders the comments stored in localStorage
 function render() {
+  commentDisplayContainer.innerHTML = ""; //testing basis
   let items = localStorage.getItem("comments")
     ? JSON.parse(localStorage.getItem("comments"))
     : [];
@@ -108,22 +144,31 @@ function render() {
   items.forEach(function (item) {
     generateComment(item, false);
   });
+
+  //testing basis
+  plusBtn = document.querySelectorAll(".plus-btn");
+  minusBtn = document.querySelectorAll(".minus-btn");
+  plusBtn.forEach(function (item) {
+    item.addEventListener("click", incScore);
+  });
+  minusBtn.forEach(function (item) {
+    item.addEventListener("click", decScore);
+  });
+  // console.log(plusBtn);
 }
 
 //function to generate/render new comment
 function generateComment(commentObj, createNewFlag) {
   const element = document.createElement("div");
   element.classList.add("comment-container");
-  element.setAttribute("cont-id", commentObj.id);
   commentDisplayContainer.appendChild(element);
 
   const replyArr = commentObj.replies;
-  let y = ""
+  let y = "";
   if (replyArr.length > 0) {
-    replyArr.forEach(function(replyItem){
-      
+    replyArr.forEach(function (replyItem) {
       y += `
-      <div class="comment-box">
+      <div class="comment-box" cont-id = "${replyItem.id}">
         <div class="score-box">
           <button class="plus-btn score-btn">+</button>
           <div class="score-text-box">${replyItem.score}</div>
@@ -156,11 +201,10 @@ function generateComment(commentObj, createNewFlag) {
       </div>
       `;
     });
-
   }
 
   let x = `
-        <div class="comment-box">
+        <div class="comment-box" cont-id = "${commentObj.id}">
           <div class="score-box">
             <button class="plus-btn score-btn">+</button>
             <div class="score-text-box">${commentObj.score}</div>
@@ -234,30 +278,46 @@ function generateComment(commentObj, createNewFlag) {
 
   //add event-listeners to newly generate comment
   const replyIcon = element.querySelector(".reply-icon-box");
-  const plusBtn = element.querySelector(".plus-btn");
-  const minusBtn = element.querySelector(".minus-btn");
+  plusBtn = element.querySelector(".plus-btn");
+  minusBtn = element.querySelector(".minus-btn");
   replyIcon.addEventListener("click", reply);
   plusBtn.addEventListener("click", incScore);
   minusBtn.addEventListener("click", decScore);
 }
 
-function reply(e) {
-  const element =
-    e.currentTarget.parentElement.parentElement.parentElement.parentElement;
-  const id = element.getAttribute("cont-id");
-  const receiver = element.querySelector(".commentator-name").textContent;
+//function to add the newly generated comment to localStorage
+function addToLocalStorage(item) {
+  const items = localStorage.getItem("comments")
+    ? JSON.parse(localStorage.getItem("comments"))
+    : [];
+  items.push(item);
+  localStorage.setItem("comments", JSON.stringify(items));
+}
 
-  const replyCommentCont = element.querySelector(".reply-comment-container");
-  replyCommentBox.classList.toggle("hide"); //uncomment later
-  const replyTextBox = element.querySelector(".reply-comment");
+//reply function (triggered when reply-btn is clicked)
+function reply(e) {
+  const element = e.currentTarget.parentElement.parentElement.parentElement;
+  // console.log(element);
+  const id = element.getAttribute("cont-id");
+  // console.log(id)
+  const receiver = element.querySelector(".commentator-name").textContent;
+  // console.log(receiver)
+
+  const replyCommentCont = element.parentElement.querySelector(
+    ".reply-comment-container"
+  );
+  // console.log(replyCommentCont)
+  replyCommentCont.classList.toggle("hide");
+  const replyTextBox = replyCommentCont.querySelector(".reply-comment");
+  // console.log(replyTextBox)
   const replyDisplayCont = element.querySelector(".reply-display-container");
 
   editFlag = true;
   replyTextBox.value = `@${receiver} `;
 
-  const replyBtn = element.querySelector("#reply-btn");
+  const replyBtn = replyCommentCont.querySelector("#reply-btn");
   replyBtn.addEventListener("click", function () {
-    console.log("reply sent")
+    console.log("reply sent");
     const item = {
       id: Math.random(),
       user: "juliusomo",
@@ -274,40 +334,7 @@ function reply(e) {
       return item;
     });
     localStorage.setItem("comments", JSON.stringify(items));
+    replyCommentCont.classList.toggle("hide");
+    render();
   });
 }
-
-//function to add the newly generated comment to localStorage
-function addToLocalStorage(item) {
-  const items = localStorage.getItem("comments")
-    ? JSON.parse(localStorage.getItem("comments"))
-    : [];
-  items.push(item);
-  localStorage.setItem("comments", JSON.stringify(items));
-}
-
-/*
-array of objects of comments. Each comment will have certain replies. So each comment-object will contain a member named "replies" which itself will be an array of replies, each reply will be in form of an object.
-
-*/
-
-const arr = [
-  {
-    id: 1,
-    user: "user-A",
-    avatar: "",
-    comment: "sfja",
-    score: 10,
-    //replies-array-of-objects has same structure as that of "arr"
-    replies: [
-      {
-        id: 0.483214351, //random ID
-        user: "user-X", //the one who replies
-        avatar: "",
-        comment: "I have replied to your comment", //actual text of reply
-        score: 0,
-        replies: [], //replies for this current reply-comment
-      },
-    ],
-  },
-];
