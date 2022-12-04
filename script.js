@@ -270,7 +270,7 @@ function generateComment(commentObj, createNewFlag) {
               placeholder="Reply to this comment..."
               rows = "4"
             ></textarea>
-            <button id="reply-btn">REPLY</button>
+            <button id="reply-btn">SEND</button>
           </div>
         </div>
         
@@ -347,7 +347,7 @@ function reply(e) {
 
   const replyBtn = replyCommentCont.querySelector("#reply-btn");
   replyBtn.addEventListener("click", function () {
-    console.log("reply sent");
+    // console.log("reply sent");
     const item = {
       id: Math.random(),
       user: "juliusomo",
