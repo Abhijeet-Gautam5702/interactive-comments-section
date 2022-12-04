@@ -5,6 +5,7 @@
 
 }
 body {
+  height:100vh;
   font-family:sans-serif;
   line-height:18px;
   text-align: justify;
