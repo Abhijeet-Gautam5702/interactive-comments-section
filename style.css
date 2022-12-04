@@ -16,8 +16,8 @@ body {
   justify-content: center;
 }
 .container {
-  height: 90vh;
-  border-top: 1px solid black;
+  height: 95vh;
+/*   border-top: 1px solid black; */
   border-radius:7px;
   max-width: 500px;
   width: 80%;
@@ -56,6 +56,7 @@ body {
 .score-box {
   /*   border: 1px solid black; */
   /*   height: 100%; */
+  min-width:30px;
   width: 8%;
   display: flex;
   flex-direction: column;
@@ -219,7 +220,7 @@ body {
   padding: 10px;
 }
 #avatar-img-container {
-  width: 8%;
+  width: 10%;
   /*   height: 50%; */
   /*   border: 1px solid black; */
 }
@@ -229,18 +230,20 @@ body {
 }
 .comment {
   padding: 7px;
-  width: 75%;
+  width: 70%;
   /*   height:100%; */
   text-align: left;
 }
 #send-btn {
+  width:15%;
   background-color:#5357b6;
   color:white;
   border-radius:5px;
   border:none;
-  font-size:12px;
+/*   font-size:12px; */
+  font-size: 0.7rem;
   height: 40%;
-  padding: 7px 10px;
+/*   padding: 7px 10px; */
   cursor:pointer;
 }
 #reply-btn {
@@ -284,4 +287,12 @@ textarea{
 ::-webkit-scrollbar-thumb {
   background: #5357b6; 
   border-radius: 10px;
+}
+
+
+/*CSS for RWD*/
+@media (max-width:550px){
+  .container{
+    width:96%;
+  }
 }
