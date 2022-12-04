@@ -6,8 +6,8 @@ const comments = [
     user: "amyrobson",
     avatar: "images/avatars/image-amyrobson.png",
     comment:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias,temporibus saepe optio illo magnam sit aut vero voluptates at eligendi?",
-    score: "10",
+      "So recently, the US is almost struggling with a recession especially in the tech industry. I have no idea how long will it last, but certainly it is going to impact many lives.",
+    score: "27",
     replies: [],
   },
   {
@@ -15,16 +15,16 @@ const comments = [
     user: "maxblagun",
     avatar: "images/avatars/image-maxblagun.png",
     comment:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias,temporibus saepe optio illo magnam sit aut vero voluptates at eligendi?",
-    score: "10",
+      "I share this with great sorrow that I have been one of the victims of the ongoing layoffs being conducted in META. My journey in the company has been full of adventures.",
+    score: "11",
     replies: [
       {
-        id: 0.483214351, //random ID
-        user: "ramsesmiron", //the one who replies
+        id: 0.483214351,
+        user: "ramsesmiron", 
         avatar: "images/avatars/image-ramsesmiron.png",
-        comment: "I have replied to your comment", //actual text of reply
-        score: 0,
-        replies: [], //replies for this current reply-comment
+        comment: "I cannot even understand the pain of the laid off employees. Please do tell me if I can be of any help for you.", 
+        score: 19,
+        replies: [], 
       },
     ],
   },
@@ -33,9 +33,18 @@ const comments = [
     user: "ramsesmiron",
     avatar: "images/avatars/image-ramsesmiron.png",
     comment:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias,temporibus saepe optio illo magnam sit aut vero voluptates at eligendi?",
-    score: "10",
-    replies: [],
+      "My deepest sympathies to all who have been affected by the current lay-offs going on in the United States. I will soon be sharing a list of companies in my contact which are in need of skilled employees",
+    score: "13",
+    replies: [
+      {
+        id: 0.45738214351, 
+        user: "juliusomo",
+        avatar: "images/avatars/image-juliusomo.png",
+        comment: "Dear sir, I have been a great admirer of you since you started your own company 10 years ago. I would be delighted to volunteer for your company in helping people getting jobs in this recession", 
+        score: 5,
+        replies: [], 
+      },
+    ],
   },
 ];
 
@@ -185,13 +194,7 @@ function generateComment(commentObj, createNewFlag) {
               />
             </div>
             <div class="commentator-name">${replyItem.user}</div>
-            <div class="reply-icon-box">
-              <img
-                src="images/icon-reply.svg"
-                alt="reply-icon"
-                class="reply-icon"
-              />
-            </div>
+            <p class="user-label ${replyItem.user} ">YOU</p>
           </div>
     
           <div class="comment-text-box">
@@ -221,6 +224,7 @@ function generateComment(commentObj, createNewFlag) {
                 />
               </div>
               <div class="commentator-name">${commentObj.user}</div>
+              <p class="user-label ${commentObj.user} ">YOU</p>
               <div class="reply-icon-box">
                 <img
                   src="images/icon-reply.svg"
@@ -232,6 +236,10 @@ function generateComment(commentObj, createNewFlag) {
   
             <div class="comment-text-box">
               ${commentObj.comment}
+            </div>
+
+            <div class="read-reply-box">
+              <button class="read-reply-btn">Replies</button>
             </div>
           </div>
         </div>
@@ -276,13 +284,34 @@ function generateComment(commentObj, createNewFlag) {
     addToLocalStorage(commentObj);
   }
 
+  //attach specific user-label to our comments/replies
+  const userLabels = document.querySelectorAll(".user-label");
+  userLabels.forEach((item)=>{
+    const username = item.parentElement.querySelector(".commentator-name").textContent;
+    if(username !== "juliusomo"){
+      item.classList.add("hide")
+    }
+  });
+
+
   //add event-listeners to newly generate comment
   const replyIcon = element.querySelector(".reply-icon-box");
+  const showReplyBtn = element.querySelector(".read-reply-btn");
   plusBtn = element.querySelector(".plus-btn");
   minusBtn = element.querySelector(".minus-btn");
   replyIcon.addEventListener("click", reply);
+  showReplyBtn.addEventListener("click",showReply)
   plusBtn.addEventListener("click", incScore);
   minusBtn.addEventListener("click", decScore);
+}
+
+function showReply(e){
+  // console.log()
+  const commentContainer = e.currentTarget.parentElement.parentElement.parentElement.parentElement;
+  const replyDispCont = commentContainer.querySelector(".reply-display-container");
+  replyDispCont.classList.toggle("hide");
+  // e.currentTarget.textContent = "Hide Replies";
+  // console.log()
 }
 
 //function to add the newly generated comment to localStorage
@@ -296,6 +325,7 @@ function addToLocalStorage(item) {
 
 //reply function (triggered when reply-btn is clicked)
 function reply(e) {
+  // showReply(e);
   const element = e.currentTarget.parentElement.parentElement.parentElement;
   // console.log(element);
   const id = element.getAttribute("cont-id");
